@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillX – Campus Talent Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0f;--paper:#f5f3ee;--accent:#ff4d1c;--accent2:#ffc93c;--muted:#8a8a8a;--border:#e2e0d8;--green:#1aaa6e;--blue:#1a6aff;--card:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+.page{display:none;min-height:100vh}.page.active{display:block}
+/* LANDING */
+#landing{background:var(--ink);color:var(--paper)}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 60px;border-bottom:1px solid rgba(245,243,238,0.08);position:relative;z-index:10}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:-1px}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:14px;font-weight:500;color:rgba(245,243,238,0.6);text-decoration:none;cursor:pointer;transition:color .2s}.nav-links a:hover{color:var(--paper)}
+.btn-nav{background:var(--accent);color:#fff;border:none;padding:10px 22px;border-radius:6px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:14px;cursor:pointer;transition:opacity .15s,transform .15s}.btn-nav:hover{opacity:.88;transform:translateY(-1px)}
+.hero{padding:100px 60px 80px;position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,77,28,.12);border:1px solid rgba(255,77,28,.3);color:var(--accent);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:500;margin-bottom:36px;letter-spacing:.5px;text-transform:uppercase;animation:fadeUp .6s ease both}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(52px,7vw,96px);font-weight:800;line-height:.95;letter-spacing:-3px;max-width:900px;animation:fadeUp .6s .1s ease both}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:18px;color:rgba(245,243,238,.55);max-width:520px;margin:28px 0 48px;line-height:1.6;font-weight:300;animation:fadeUp .6s .2s ease both}
+.hero-ctas{display:flex;gap:16px;animation:fadeUp .6s .3s ease both}
+.btn-primary{background:var(--accent);color:#fff;border:none;padding:16px 32px;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:16px;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 8px 32px rgba(255,77,28,.35)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,77,28,.45)}
+.btn-ghost{background:transparent;color:var(--paper);border:1px solid rgba(245,243,238,.2);padding:16px 32px;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:16px;cursor:pointer;transition:border-color .2s,background .2s}.btn-ghost:hover{border-color:rgba(245,243,238,.5);background:rgba(245,243,238,.05)}
+.stats-strip{display:flex;border-top:1px solid rgba(245,243,238,.08);border-bottom:1px solid rgba(245,243,238,.08);margin:60px 0 0;animation:fadeUp .6s .4s ease both}
+.stat-item{flex:1;padding:32px 40px;border-right:1px solid rgba(245,243,238,.08)}.stat-item:last-child{border-right:none}
+.stat-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;letter-spacing:-2px}.stat-num span{color:var(--accent)}
+.stat-label{font-size:13px;color:rgba(245,243,238,.45);margin-top:4px;font-weight:300}
+.section{padding:80px 60px;position:relative;z-index:2}
+.section-label{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-2px;color:var(--paper);max-width:600px;line-height:1.05;margin-bottom:64px}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(245,243,238,.08);border:1px solid rgba(245,243,238,.08);border-radius:12px;overflow:hidden}
+.step-card{background:var(--ink);padding:40px 32px;transition:background .25s}.step-card:hover{background:#0f0f17}
+.step-num{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:2px;margin-bottom:24px}
+.step-icon{font-size:32px;margin-bottom:20px}
+.step-card h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--paper);margin-bottom:10px;letter-spacing:-.5px}
+.step-card p{font-size:14px;color:rgba(245,243,238,.45);line-height:1.6;font-weight:300}
+.skills-section{padding:60px 0;border-top:1px solid rgba(245,243,238,.08);overflow:hidden}
+.marquee-wrap{display:flex;gap:16px;animation:marquee 20s linear infinite;width:max-content}
+.skill-pill{background:rgba(245,243,238,.05);border:1px solid rgba(245,243,238,.1);color:rgba(245,243,238,.7);padding:10px 20px;border-radius:100px;font-size:13px;white-space:nowrap}
+.skill-pill.hot{background:rgba(255,77,28,.1);border-color:rgba(255,77,28,.2);color:var(--accent)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.why-card{background:rgba(245,243,238,.03);border:1px solid rgba(245,243,238,.08);border-radius:12px;padding:36px;transition:border-color .25s}
+.why-card:hover{border-color:rgba(255,77,28,.3)}
+.why-card:first-child{grid-column:span 2;background:rgba(255,77,28,.06);border-color:rgba(255,77,28,.2)}
+.why-icon{font-size:28px;margin-bottom:16px}
+.why-card h3{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--paper);margin-bottom:10px;letter-spacing:-.5px}
+.why-card p{font-size:14px;color:rgba(245,243,238,.45);line-height:1.65}
+.cta-section{padding:100px 60px;text-align:center;border-top:1px solid rgba(245,243,238,.08)}
+.cta-section h2{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2.5px;color:var(--paper);margin-bottom:20px;line-height:1}
+.cta-section p{color:rgba(245,243,238,.45);font-size:16px;margin-bottom:40px}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,10,15,.88);backdrop-filter:blur(12px);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#111118;border:1px solid rgba(245,243,238,.1);border-radius:20px;padding:48px;width:100%;max-width:460px;position:relative;animation:scaleIn .25s ease;max-height:90vh;overflow-y:auto}
+.modal-close{position:absolute;top:18px;right:18px;background:rgba(245,243,238,.08);border:none;color:rgba(245,243,238,.5);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:background .2s}.modal-close:hover{background:rgba(245,243,238,.15);color:var(--paper)}
+.modal-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.5px;color:var(--paper);margin-bottom:6px}.modal-logo span{color:var(--accent)}
+.modal-tagline{font-size:13px;color:rgba(245,243,238,.4);margin-bottom:32px}
+.tab-switch{display:flex;background:rgba(245,243,238,.05);border-radius:8px;padding:4px;margin-bottom:24px}
+.tab-btn{flex:1;padding:9px;border:none;background:transparent;color:rgba(245,243,238,.4);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;border-radius:6px;transition:all .2s}.tab-btn.active{background:var(--accent);color:#fff}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:11px;font-weight:600;color:rgba(245,243,238,.5);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:rgba(245,243,238,.05);border:1px solid rgba(245,243,238,.1);color:var(--paper);padding:12px 14px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(245,243,238,.25)}
+.form-group select option{background:#111118}
+.form-group textarea{resize:vertical;min-height:80px}
+.btn-submit{width:100%;background:var(--accent);color:#fff;border:none;padding:14px;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;cursor:pointer;margin-top:6px;transition:opacity .2s,transform .15s;box-shadow:0 6px 24px rgba(255,77,28,.3)}.btn-submit:hover{opacity:.88;transform:translateY(-1px)}
+.form-footer{font-size:12px;color:rgba(245,243,238,.3);text-align:center;margin-top:14px}.form-footer a{color:var(--accent);cursor:pointer}
+#loginForm,#signupForm{display:none}#loginForm.active,#signupForm.active{display:block}
+/* DASHBOARD */
+#dashboard{background:var(--paper);min-height:100vh}
+.dash-nav{background:#fff;border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 var(--border)}
+.dash-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.5px;color:var(--ink)}.dash-logo span{color:var(--accent)}
+.dash-nav-center{display:flex;gap:4px}
+.dash-tab{padding:8px 18px;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;border-radius:8px;transition:all .2s}.dash-tab:hover{background:rgba(10,10,15,.05);color:var(--ink)}.dash-tab.active{background:var(--ink);color:#fff}
+.dash-nav-right{display:flex;align-items:center;gap:10px}
+.notif-btn{position:relative;background:none;border:1px solid var(--border);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:border-color .2s}.notif-btn:hover{border-color:var(--ink)}
+.notif-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;background:var(--accent);border-radius:50%}
+.user-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:#fff;cursor:pointer;border:2px solid var(--border)}
+.logout-btn{background:none;border:1px solid var(--border);padding:7px 13px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;color:var(--muted);transition:all .2s}.logout-btn:hover{border-color:var(--accent);color:var(--accent)}
+.dash-panel{display:none;padding:28px 32px}.dash-panel.active{display:block}
+/* HOME PANEL */
+.greeting-banner{background:var(--ink);border-radius:16px;padding:32px 40px;margin-bottom:24px;color:var(--paper);display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
+.greeting-banner::after{content:'SkillX';position:absolute;right:-20px;bottom:-30px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(245,243,238,.03);letter-spacing:-5px;pointer-events:none}
+.greeting-banner h2{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+.greeting-banner p{color:rgba(245,243,238,.5);font-size:14px}
+.banner-ctas{display:flex;gap:10px;margin-top:16px}
+.banner-earn{text-align:right;background:rgba(255,77,28,.15);border:1px solid rgba(255,77,28,.2);border-radius:12px;padding:14px 22px;position:relative;z-index:1}
+.pts-num{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:var(--accent);line-height:1}
+.pts-label{font-size:11px;color:rgba(245,243,238,.4);margin-top:3px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 22px;transition:border-color .2s,box-shadow .2s}
+.stat-card:hover{border-color:rgba(255,77,28,.3);box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.sc-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.sc-value{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-1px}
+.sc-hint{font-size:12px;color:var(--muted);margin-top:4px}
+.sc-hint.good{color:var(--green)}
+/* PANEL CARDS */
+.panel-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px}
+.panel-card-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:18px;display:flex;align-items:center;justify-content:space-between}
+.panel-card-title a{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--accent);cursor:pointer;text-decoration:none}
+.three-col{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+/* ACTIVITY */
+.activity-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}.activity-item:last-child{border-bottom:none}
+.act-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.act-icon.earn{background:rgba(26,170,110,.1)}.act-icon.hire{background:rgba(26,106,255,.1)}.act-icon.review{background:rgba(255,201,60,.1)}
+.act-info{flex:1}.act-title{font-size:14px;font-weight:500;color:var(--ink)}.act-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.act-amount{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}.act-amount.pos{color:var(--green)}.act-amount.neg{color:var(--accent)}
+.empty-state{text-align:center;padding:40px 20px;color:var(--muted)}
+.empty-state .es-icon{font-size:36px;margin-bottom:10px}
+.empty-state p{font-size:14px;line-height:1.6}
+/* EXPLORE */
+.search-bar{display:flex;gap:10px;margin-bottom:20px}
+.search-bar input{flex:1;border:1px solid var(--border);background:#fff;padding:11px 16px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s;color:var(--ink)}.search-bar input:focus{border-color:var(--accent)}
+.search-bar select{border:1px solid var(--border);background:#fff;padding:11px 16px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;cursor:pointer;color:var(--ink)}
+.talent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.talent-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px;transition:border-color .2s,box-shadow .2s,transform .2s;cursor:default}
+.talent-card:hover{border-color:rgba(255,77,28,.3);box-shadow:0 8px 32px rgba(0,0,0,.08);transform:translateY(-2px)}
+.tc-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.tc-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:#fff;flex-shrink:0}
+.tc-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ink)}.tc-year{font-size:12px;color:var(--muted)}
+.tc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.tc-tag{background:var(--paper);border:1px solid var(--border);color:var(--ink);font-size:11px;font-weight:500;padding:3px 9px;border-radius:100px}
+.tc-footer{display:flex;justify-content:space-between;align-items:center}
+.tc-price{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--ink)}.tc-price span{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:400;color:var(--muted)}
+.tc-rating{font-size:12px;font-weight:500;color:var(--ink)}.star{color:#f59e0b}
+.btn-hire{width:100%;background:var(--ink);color:#fff;border:none;padding:10px;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:13px;cursor:pointer;margin-top:12px;transition:background .2s}.btn-hire:hover{background:var(--accent)}
+/* PROFILE */
+.profile-header{background:#fff;border:1px solid var(--border);border-radius:16px;padding:32px 36px;margin-bottom:18px;display:flex;align-items:flex-start;gap:24px}
+.profile-av-big{width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:30px;color:#fff;flex-shrink:0;border:3px solid var(--border)}
+.profile-info{flex:1}.profile-info h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.5px}
+.profile-meta{font-size:13px;color:var(--muted);margin-top:3px}
+.profile-badges{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.badge{font-size:11px;font-weight:600;padding:4px 11px;border-radius:100px;letter-spacing:.3px;text-transform:uppercase}
+.badge.verified{background:rgba(26,106,255,.1);color:var(--blue)}.badge.top{background:rgba(255,77,28,.1);color:var(--accent)}.badge.skill-b{background:var(--paper);border:1px solid var(--border);color:var(--ink)}.badge.locked{background:rgba(138,138,138,.1);color:var(--muted)}
+.profile-stats-row{display:flex;gap:28px;margin-top:16px}
+.ps-item .ps-num{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-1px}
+.ps-item .ps-label{font-size:11px;color:var(--muted);margin-top:1px}
+/* SKILLS SECTION */
+.my-skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px}
+.skill-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px;transition:border-color .2s}
+.skill-card:hover{border-color:var(--accent)}
+.skill-card.add-card{border-style:dashed;justify-content:center;cursor:pointer;flex-direction:column;gap:6px;color:var(--muted);padding:20px}.skill-card.add-card:hover{color:var(--accent);border-color:var(--accent)}
+.skill-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.skill-name{font-size:14px;font-weight:500;color:var(--ink)}.skill-rate{font-size:12px;color:var(--muted);margin-top:2px}
+.skill-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;margin-left:auto;padding:4px;border-radius:4px;transition:color .2s}.skill-del:hover{color:#e53e3e}
+/* VERIFY SECTION */
+.verify-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px}
+.verify-upload-area{border:2px dashed var(--border);border-radius:10px;padding:32px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
+.verify-upload-area:hover{border-color:var(--accent);background:rgba(255,77,28,.02)}
+.verify-upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.verify-upload-area .upload-icon{font-size:32px;margin-bottom:10px}
+.verify-upload-area p{font-size:14px;color:var(--muted)}.verify-upload-area span{font-size:12px;color:var(--muted)}
+.verify-preview{display:none;margin-top:14px;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.verify-preview img{width:100%;max-height:200px;object-fit:cover;display:block}
+/* POINTS BAR */
+.points-progress-wrap{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px}
+.pts-bar-track{height:10px;background:var(--paper);border-radius:100px;margin:10px 0 6px;overflow:hidden}
+.pts-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:100px;transition:width .6s ease}
+/* ORDERS TABLE */
+.orders-table{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.orders-table table{width:100%;border-collapse:collapse}
+.orders-table th{text-align:left;padding:13px 18px;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--paper)}
+.orders-table td{padding:14px 18px;font-size:14px;border-bottom:1px solid var(--border);color:var(--ink)}.orders-table tr:last-child td{border-bottom:none}.orders-table tr:hover td{background:rgba(255,77,28,.02)}
+.o-status{font-size:11px;font-weight:600;padding:4px 9px;border-radius:100px;text-transform:uppercase;display:inline-block}
+.o-status.done{background:rgba(26,170,110,.1);color:var(--green)}.o-status.progress{background:rgba(26,106,255,.1);color:var(--blue)}.o-status.pending{background:rgba(255,201,60,.12);color:#b88a00}
+/* MONETIZE */
+.monetize-banner{background:linear-gradient(135deg,var(--ink),#1a1a2e);border:1px solid rgba(255,77,28,.2);border-radius:12px;padding:24px;color:var(--paper);text-align:center}
+.monetize-banner h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;letter-spacing:-.3px}
+.monetize-banner p{font-size:13px;color:rgba(245,243,238,.5);margin-bottom:16px}
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--ink);color:var(--paper);padding:13px 20px;border-radius:10px;font-size:14px;font-weight:500;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);border-left:3px solid var(--accent)}
+.toast.show{transform:translateY(0);opacity:1}
+/* EDIT PROFILE FORM */
+.edit-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.edit-form-grid .full{grid-column:span 2}
+.edit-form-grid .form-group label{color:var(--muted)}
+.edit-form-grid input,.edit-form-grid select,.edit-form-grid textarea{background:var(--paper);border-color:var(--border);color:var(--ink)}
+.edit-form-grid input:focus,.edit-form-grid select:focus,.edit-form-grid textarea:focus{border-color:var(--accent)}
+.edit-form-grid input::placeholder,.edit-form-grid textarea::placeholder{color:#bbb}
+/* ADD SKILL MODAL */
+.add-skill-modal{max-width:400px}
+/* HIRE MODAL */
+.hire-modal-info{display:flex;align-items:center;gap:12px;padding:16px;background:var(--paper);border-radius:10px;margin-bottom:20px}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(10,10,15,.12);border-radius:10px}
+/* ANIMS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+</style>
+</head>
+<body>
+
+<!-- ===== LANDING ===== -->
+<div id="landing" class="page active">
+  <nav>
+    <div class="logo">Skill<span>X</span></div>
+    <div class="nav-links">
+      <a onclick="scrollTo2('how')">How it works</a>
+      <a onclick="scrollTo2('why')">Why SkillX</a>
+      <a onclick="scrollTo2('cta-sec')">Join</a>
+      <button class="btn-nav" onclick="openModal('login')">Log In</button>
+      <button class="btn-nav" style="background:rgba(245,243,238,.08);border:1px solid rgba(245,243,238,.15)" onclick="openModal('signup')">Sign Up</button>
+    </div>
+  </nav>
+  <div class="hero">
+    <div class="hero-badge">🚀 Now live at 12+ campuses</div>
+    <h1>Your campus.<br>Your <em>talent.</em><br>Your economy.</h1>
+    <p class="hero-sub">SkillX connects students who need work done with students who can do it — all within your college. Earn, hire, and build your portfolio.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="openModal('signup')">Get Started Free</button>
+      <button class="btn-ghost" onclick="openModal('login')">I already have an account</button>
+    </div>
+    <div class="stats-strip">
+      <div class="stat-item"><div class="stat-num">2<span>K+</span></div><div class="stat-label">Active students</div></div>
+      <div class="stat-item"><div class="stat-num">₹<span>8L+</span></div><div class="stat-label">Earned by students</div></div>
+      <div class="stat-item"><div class="stat-num">340<span>+</span></div><div class="stat-label">Skills listed</div></div>
+      <div class="stat-item"><div class="stat-num">4.9<span>★</span></div><div class="stat-label">Average rating</div></div>
+    </div>
+  </div>
+  <div class="section" id="how">
+    <div class="section-label">Process</div>
+    <div class="section-title">How SkillX works</div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-num">01</div><div class="step-icon">🎓</div><h3>Create your profile</h3><p>Sign up with your college email. Upload your college ID for campus verification and trust.</p></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-icon">⚡</div><h3>List your skills</h3><p>Add what you offer — coding, design, writing, video editing, tutoring. Set your price in ₹.</p></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-icon">🔍</div><h3>Search & hire</h3><p>Browse verified student talent. Filter by skill, year, rating, or price. Hire instantly.</p></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-icon">⭐</div><h3>Earn & grow</h3><p>Complete orders, earn ₹ and 100 skill points per order. Unlock monetization at 200 points.</p></div>
+    </div>
+  </div>
+  <div class="skills-section">
+    <div class="marquee-wrap">
+      <div class="skill-pill hot">🔥 React Development</div><div class="skill-pill">UI/UX Design</div><div class="skill-pill hot">🔥 PPT Design</div><div class="skill-pill">Video Editing</div><div class="skill-pill">Python Tutoring</div><div class="skill-pill hot">🔥 Logo Design</div><div class="skill-pill">Resume Writing</div><div class="skill-pill">DSA Coaching</div><div class="skill-pill">Content Writing</div><div class="skill-pill hot">🔥 App Development</div><div class="skill-pill">Photography</div><div class="skill-pill">Social Media</div>
+      <div class="skill-pill hot">🔥 React Development</div><div class="skill-pill">UI/UX Design</div><div class="skill-pill hot">🔥 PPT Design</div><div class="skill-pill">Video Editing</div><div class="skill-pill">Python Tutoring</div><div class="skill-pill hot">🔥 Logo Design</div><div class="skill-pill">Resume Writing</div><div class="skill-pill">DSA Coaching</div><div class="skill-pill">Content Writing</div><div class="skill-pill hot">🔥 App Development</div><div class="skill-pill">Photography</div><div class="skill-pill">Social Media</div>
+    </div>
+  </div>
+  <div class="section" id="why">
+    <div class="section-label">Why SkillX</div>
+    <div class="section-title">Not just a platform.<br>A campus economy.</div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon">💡</div><h3>Think Fiverr × LinkedIn × Campus ID</h3><p>SkillX is a trust layer built for college communities. Every profile is campus-verified, every skill is real, every transaction stays in your ecosystem.</p></div>
+      <div class="why-card"><div class="why-icon">💰</div><h3>Earn while you learn</h3><p>Monetize skills you already have. Build a real portfolio with real clients — your own classmates and seniors.</p></div>
+      <div class="why-card"><div class="why-icon">🤝</div><h3>Kill WhatsApp chaos</h3><p>Stop hunting for talent in 10 group chats. One searchable marketplace for your entire campus.</p></div>
+      <div class="why-card"><div class="why-icon">📈</div><h3>Employability booster</h3><p>Every completed gig is portfolio material. Build a verified work history before graduation.</p></div>
+      <div class="why-card"><div class="why-icon">🎯</div><h3>Points & Monetization</h3><p>Earn 100 skill points per completed order. Reach 200 points to unlock full profile monetization.</p></div>
+    </div>
+  </div>
+  <div class="cta-section" id="cta-sec">
+    <h2>Ready to join your<br>campus economy?</h2>
+    <p>Free to join. Verified by your campus. Start earning or hiring today.</p>
+    <button class="btn-primary" style="font-size:17px;padding:18px 40px" onclick="openModal('signup')">Create Your Profile →</button>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="dashboard" class="page">
+  <div class="dash-nav">
+    <div class="dash-logo">Skill<span>X</span></div>
+    <div class="dash-nav-center">
+      <button class="dash-tab active" onclick="switchTab('home',this)">Home</button>
+      <button class="dash-tab" onclick="switchTab('explore',this)">Explore</button>
+      <button class="dash-tab" onclick="switchTab('orders',this)">My Orders</button>
+      <button class="dash-tab" onclick="switchTab('profile',this)">Profile</button>
+    </div>
+    <div class="dash-nav-right">
+      <button class="notif-btn">🔔<div class="notif-dot" id="notifDot" style="display:none"></div></button>
+      <div class="user-avatar" id="navAvatar">?</div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="dash-panel active" id="panel-home">
+    <div class="greeting-banner">
+      <div>
+        <h2>Hey, <span id="greetName">Student</span> 👋</h2>
+        <p id="greetSub">Welcome to SkillX! Set up your profile to get started.</p>
+        <div class="banner-ctas">
+          <button class="btn-primary" style="font-size:13px;padding:9px 18px" onclick="switchTab('explore',document.querySelectorAll('.dash-tab')[1])">Browse Talent</button>
+          <button class="btn-ghost" style="font-size:13px;padding:9px 18px;border-color:rgba(245,243,238,.15)" onclick="switchTab('profile',document.querySelectorAll('.dash-tab')[3])">Edit Profile</button>
+        </div>
+      </div>
+      <div class="banner-earn"><div class="pts-num" id="bannerEarnings">₹0</div><div class="pts-label">Total Earnings</div></div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="sc-label">Active Skills</div><div class="sc-value" id="statSkills">0</div><div class="sc-hint">Add skills to earn</div></div>
+      <div class="stat-card"><div class="sc-label">Orders Completed</div><div class="sc-value" id="statOrders">0</div><div class="sc-hint" id="statOrdersHint">Complete orders to earn</div></div>
+      <div class="stat-card"><div class="sc-label">Your Rating</div><div class="sc-value" id="statRating">—</div><div class="sc-hint">No reviews yet</div></div>
+      <div class="stat-card"><div class="sc-label">Skill Points</div><div class="sc-value" id="statPoints">0</div><div class="sc-hint" id="statPointsHint">200 pts to monetize</div></div>
+    </div>
+    <div class="three-col">
+      <div class="panel-card">
+        <div class="panel-card-title">Recent Activity</div>
+        <div id="activityFeed"><div class="empty-state"><div class="es-icon">📭</div><p>No activity yet.<br>Complete orders or hire talent to see your feed.</p></div></div>
+      </div>
+      <div>
+        <div class="panel-card" style="margin-bottom:16px">
+          <div class="panel-card-title">My Skills</div>
+          <div id="homeSkillsList"><div class="empty-state" style="padding:20px 10px"><div class="es-icon">⚡</div><p style="font-size:13px">No skills added yet.<br><a style="color:var(--accent);cursor:pointer" onclick="switchTab('profile',document.querySelectorAll('.dash-tab')[3])">Add your first skill →</a></p></div></div>
+        </div>
+        <div id="monetizeWidget"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPLORE -->
+  <div class="dash-panel" id="panel-explore">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px">
+      <div><div class="section-label" style="color:var(--accent)">Browse</div><h2 style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--ink)">Find Campus Talent</h2></div>
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search skills, names..." id="searchInput" oninput="filterTalent()">
+      <select id="catFilter" onchange="filterTalent()">
+        <option value="">All Categories</option>
+        <option>Design</option><option>Development</option><option>Writing</option><option>Video</option><option>Teaching</option><option>Other</option>
+      </select>
+    </div>
+    <div class="talent-grid" id="talentGrid"></div>
+  </div>
+
+  <!-- ORDERS -->
+  <div class="dash-panel" id="panel-orders">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px">
+      <div><div class="section-label" style="color:var(--accent)">Tracking</div><h2 style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--ink)">My Orders</h2></div>
+    </div>
+    <div id="ordersContent"></div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="dash-panel" id="panel-profile">
+    <div class="profile-header">
+      <div class="profile-av-big" id="profAvatar">?</div>
+      <div class="profile-info" style="flex:1">
+        <h2 id="profName">—</h2>
+        <div class="profile-meta" id="profMeta">—</div>
+        <div class="profile-badges" id="profBadges"></div>
+        <div class="profile-stats-row">
+          <div class="ps-item"><div class="ps-num" id="profOrders">0</div><div class="ps-label">Completed</div></div>
+          <div class="ps-item"><div class="ps-num" id="profRating">—</div><div class="ps-label">Rating</div></div>
+          <div class="ps-item"><div class="ps-num" id="profEarnings">₹0</div><div class="ps-label">Earned</div></div>
+          <div class="ps-item"><div class="ps-num" id="profPoints">0</div><div class="ps-label">Points</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Points Progress -->
+    <div class="points-progress-wrap" style="margin-bottom:18px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ink)">Skill Points Progress</div>
+        <div style="font-size:12px;color:var(--muted)" id="ptsProgressLabel">0 / 200 pts to unlock monetization</div>
+      </div>
+      <div class="pts-bar-track"><div class="pts-bar-fill" id="ptsBarFill" style="width:0%"></div></div>
+      <div style="font-size:12px;color:var(--muted)" id="ptsProgressMsg">Complete orders to earn 100 points each. Reach 200 to monetize your profile!</div>
+    </div>
+
+    <div class="two-col">
+      <!-- Edit Profile -->
+      <div class="panel-card">
+        <div class="panel-card-title">Edit Profile</div>
+        <div class="edit-form-grid">
+          <div class="form-group full"><label>Display Name</label><input type="text" id="editName" placeholder="Your full name"></div>
+          <div class="form-group"><label>Branch / Department</label>
+            <select id="editBranch">
+              <option value="">Select branch</option>
+              <option>Computer Engineering</option><option>Information Technology</option><option>Mechanical Engineering</option><option>Electronics & Telecom</option><option>Civil Engineering</option><option>Chemical Engineering</option><option>MBA</option><option>BBA</option><option>B.Sc Computer Science</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Year</label>
+            <select id="editYear">
+              <option value="">Select year</option>
+              <option>1st Year (FE)</option><option>2nd Year (SE)</option><option>3rd Year (TE)</option><option>4th Year (BE)</option><option>Postgraduate</option>
+            </select>
+          </div>
+          <div class="form-group"><label>College Name</label><input type="text" id="editCollege" placeholder="e.g. PICT Pune"></div>
+          <div class="form-group"><label>Mobile Number</label><input type="tel" id="editMobile" placeholder="10-digit number"></div>
+          <div class="form-group full"><label>Bio (what you do)</label><textarea id="editBio" placeholder="Tell others what you're good at and what services you offer..."></textarea></div>
+          <div class="form-group full"><label>UPI ID (for payments)</label><input type="text" id="editUPI" placeholder="yourname@upi"></div>
+          <div class="form-group full"><label>LinkedIn / Portfolio URL</label><input type="text" id="editLinkedin" placeholder="https://..."></div>
+        </div>
+        <button class="btn-submit" style="background:var(--ink);box-shadow:none;margin-top:14px" onclick="saveProfile()">Save Profile</button>
+      </div>
+
+      <!-- Verify + Skills -->
+      <div>
+        <!-- VERIFY -->
+        <div class="verify-box" style="margin-bottom:16px">
+          <div class="panel-card-title" style="margin-bottom:14px">Campus Verification</div>
+          <div id="verifyStatus"></div>
+          <div id="verifyUploadSection">
+            <div class="verify-upload-area" id="uploadArea">
+              <input type="file" id="collegeIdInput" accept="image/*" onchange="handleIdUpload(event)">
+              <div class="upload-icon">🪪</div>
+              <p>Click or drag your College ID photo</p>
+              <span>JPG, PNG accepted · Max 5MB</span>
+            </div>
+            <div class="verify-preview" id="verifyPreview"><img id="verifyPreviewImg" src="" alt="College ID"></div>
+            <button class="btn-submit" style="margin-top:12px" id="verifySubmitBtn" onclick="submitVerification()" disabled>Submit for Verification</button>
+          </div>
+        </div>
+
+        <!-- MY SKILLS -->
+        <div class="panel-card">
+          <div class="panel-card-title">My Skills & Services <a onclick="openAddSkillModal()">+ Add Skill</a></div>
+          <div class="my-skills-grid" id="mySkillsGrid">
+            <div class="skill-card add-card" onclick="openAddSkillModal()">
+              <div style="font-size:24px">+</div>
+              <div style="font-size:13px;font-weight:500">Add Your First Skill</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== AUTH MODAL ===== -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAuthModal()">✕</button>
+    <div class="modal-logo">Skill<span>X</span></div>
+    <div class="modal-tagline">Campus talent marketplace</div>
+    <div class="tab-switch">
+      <button class="tab-btn active" id="tabLogin" onclick="switchAuthTab('login')">Log In</button>
+      <button class="tab-btn" id="tabSignup" onclick="switchAuthTab('signup')">Sign Up</button>
+    </div>
+    <div id="loginForm" class="active">
+      <div class="form-group"><label>College Email</label><input type="email" id="loginEmail" placeholder="you@college.edu"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
+      <button class="btn-submit" onclick="doLogin()">Log In →</button>
+      <div class="form-footer">No account? <a onclick="switchAuthTab('signup')">Sign up free</a></div>
+    </div>
+    <div id="signupForm">
+      <div class="form-group"><label>Full Name</label><input type="text" id="signupName" placeholder="Your full name"></div>
+      <div class="form-group"><label>College Email</label><input type="email" id="signupEmail" placeholder="you@college.edu"></div>
+      <div class="form-group"><label>Branch</label>
+        <select id="signupBranch">
+          <option value="">Select branch</option>
+          <option>Computer Engineering</option><option>Information Technology</option><option>Mechanical Engineering</option><option>Electronics & Telecom</option><option>Civil Engineering</option><option>MBA</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Year</label>
+        <select id="signupYear">
+          <option value="">Select year</option>
+          <option>1st Year (FE)</option><option>2nd Year (SE)</option><option>3rd Year (TE)</option><option>4th Year (BE)</option><option>Postgraduate</option>
+        </select>
+      </div>
+      <div class="form-group"><label>College Name</label><input type="text" id="signupCollege" placeholder="e.g. PICT Pune"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="signupPassword" placeholder="Min 6 characters"></div>
+      <button class="btn-submit" onclick="doSignup()">Create Account →</button>
+      <div class="form-footer">By signing up you agree to our <a>Terms</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADD SKILL MODAL ===== -->
+<div class="modal-overlay" id="addSkillModal">
+  <div class="modal add-skill-modal">
+    <button class="modal-close" onclick="closeAddSkillModal()">✕</button>
+    <div class="modal-logo" style="font-size:18px">Add a <span>Skill</span></div>
+    <div class="modal-tagline">Create your custom service offering</div>
+    <div class="form-group"><label>Skill / Service Name</label><input type="text" id="skillName" placeholder="e.g. React Development, Logo Design, PPT Making..."></div>
+    <div class="form-group"><label>Category</label>
+      <select id="skillCategory">
+        <option value="">Select category</option>
+        <option>Design</option><option>Development</option><option>Writing</option><option>Video</option><option>Teaching</option><option>Photography</option><option>Marketing</option><option>Music</option><option>Other</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Emoji Icon (optional)</label><input type="text" id="skillEmoji" placeholder="🎨 or leave blank for default" maxlength="2"></div>
+    <div class="form-group"><label>Your Price (₹)</label><input type="number" id="skillPrice" placeholder="e.g. 500" min="1"></div>
+    <div class="form-group"><label>Pricing Type</label>
+      <select id="skillPricing">
+        <option>per project</option><option>per hour</option><option>per page</option><option>per design</option><option>per video</option><option>fixed</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Short Description</label><textarea id="skillDesc" placeholder="Describe what you offer, your experience, delivery time..."></textarea></div>
+    <button class="btn-submit" onclick="addSkill()">Add Skill →</button>
+  </div>
+</div>
+
+<!-- ===== HIRE MODAL ===== -->
+<div class="modal-overlay" id="hireModal">
+  <div class="modal" style="max-width:420px">
+    <button class="modal-close" onclick="closeHireModal()">✕</button>
+    <div class="modal-logo" style="font-size:18px">Hire <span id="hirePersonName">Talent</span></div>
+    <div class="modal-tagline">Send a hire request</div>
+    <div class="hire-modal-info" id="hireInfo"></div>
+    <div class="form-group"><label>Project Description</label><textarea id="hireDesc" placeholder="Describe exactly what you need..."></textarea></div>
+    <div class="form-group"><label>Your Budget (₹)</label><input type="number" id="hireBudget" placeholder="Enter your budget"></div>
+    <div class="form-group"><label>Deadline</label><input type="date" id="hireDeadline"></div>
+    <button class="btn-submit" onclick="submitHire()">Send Hire Request →</button>
+  </div>
+</div>
+
+<!-- ===== COMPLETE ORDER MODAL (for demo) ===== -->
+<div class="modal-overlay" id="completeModal">
+  <div class="modal" style="max-width:420px">
+    <button class="modal-close" onclick="document.getElementById('completeModal').classList.remove('open')">✕</button>
+    <div class="modal-logo" style="font-size:18px">Mark as <span>Complete</span></div>
+    <div class="modal-tagline">Confirm order completion & rate the student</div>
+    <div id="completeOrderInfo" style="font-size:14px;color:var(--muted);margin-bottom:18px;background:var(--paper);padding:12px;border-radius:8px"></div>
+    <div class="form-group"><label>Rate your experience (1–5 ★)</label>
+      <select id="ratingSelect">
+        <option value="5">⭐⭐⭐⭐⭐ — Excellent (5)</option>
+        <option value="4">⭐⭐⭐⭐ — Good (4)</option>
+        <option value="3">⭐⭐⭐ — Average (3)</option>
+        <option value="2">⭐⭐ — Below average (2)</option>
+        <option value="1">⭐ — Poor (1)</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Review (optional)</label><textarea id="reviewText" placeholder="Leave feedback for the student..."></textarea></div>
+    <button class="btn-submit" onclick="completeOrder()">Confirm & Release Payment →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============ STATE ============
+let user = null; // current logged in user
+let currentHireTarget = null;
+let currentCompleteOrderId = null;
+
+// User data structure (per-user, stored in memory)
+const users = {}; // keyed by email
+
+// Demo talent pool (other students on platform - not the logged-in user)
+const demoTalents = [
+  { id:'t1', name:"Arjun Mehta", year:"3rd Year · CE", college:"PICT Pune", skills:["React","Node.js","MongoDB"], price:800, pricingType:"per project", category:"Development", rating:4.9, reviews:14, color:"#ff4d1c", bio:"Full stack developer. Build websites, REST APIs and dashboards." },
+  { id:'t2', name:"Sneha Patel", year:"2nd Year · IT", college:"COEP Pune", skills:["Premiere Pro","After Effects","Reels"], price:500, pricingType:"per video", category:"Video", rating:4.8, reviews:9, color:"#1a6aff", bio:"Video editor specializing in short-form content and reels." },
+  { id:'t3', name:"Kavya Sharma", year:"4th Year · CE", college:"VIT Pune", skills:["Figma","Logo Design","Branding"], price:600, pricingType:"per design", category:"Design", rating:4.7, reviews:11, color:"#1aaa6e", bio:"UI/UX designer. Create clean, user-centric interfaces and brand identities." },
+  { id:'t4', name:"Vikram Nair", year:"4th Year · IT", college:"PICT Pune", skills:["Python","ML","Data Analysis"], price:1000, pricingType:"per project", category:"Development", rating:5.0, reviews:6, color:"#9333ea", bio:"ML enthusiast. Build models, dashboards and automation scripts." },
+  { id:'t5', name:"Priya Joshi", year:"3rd Year · IT", college:"MIT Pune", skills:["PPT Design","Canva","Infographics"], price:400, pricingType:"per project", category:"Design", rating:4.9, reviews:22, color:"#f59e0b", bio:"Presentation expert. Transform boring slides into visual stories." },
+  { id:'t6', name:"Rahul Kumar", year:"3rd Year · CE", college:"BITS Pune", skills:["DSA","C++","Java Coaching"], price:350, pricingType:"per hour", category:"Teaching", rating:4.6, reviews:8, color:"#0ea5e9", bio:"Competitive programmer. Help freshers crack DSA and placements." },
+  { id:'t7', name:"Meera Singh", year:"2nd Year · CS", college:"Symbiosis Pune", skills:["Content Writing","Blog Posts","SEO"], price:300, pricingType:"per article", category:"Writing", rating:4.8, reviews:17, color:"#ec4899", bio:"Content writer with a knack for SEO and engaging copy." },
+  { id:'t8', name:"Aditya Rao", year:"4th Year · IT", college:"PICT Pune", skills:["Flutter","Firebase","Android"], price:1200, pricingType:"per project", category:"Development", rating:4.9, reviews:5, color:"#10b981", bio:"Mobile dev. Build cross-platform Flutter apps from scratch." },
+  { id:'t9', name:"Divya Iyer", year:"3rd Year · CE", college:"COEP Pune", skills:["UI/UX","Wireframing","Prototyping"], price:700, pricingType:"per project", category:"Design", rating:4.7, reviews:12, color:"#f97316", bio:"UX researcher + designer. User flows, wireframes, hi-fi prototypes." },
+];
+
+// Category emoji map
+const catEmojis = {Design:"🎨",Development:"💻",Writing:"✏️",Video:"🎬",Teaching:"📚",Photography:"📸",Marketing:"📣",Music:"🎵",Other:"⚡"};
+
+// ============ AUTH ============
+function openModal(tab) { document.getElementById('authModal').classList.add('open'); switchAuthTab(tab); }
+function closeAuthModal() { document.getElementById('authModal').classList.remove('open'); }
+function switchAuthTab(tab) {
+  document.getElementById('loginForm').classList.toggle('active', tab==='login');
+  document.getElementById('signupForm').classList.toggle('active', tab==='signup');
+  document.getElementById('tabLogin').classList.toggle('active', tab==='login');
+  document.getElementById('tabSignup').classList.toggle('active', tab==='signup');
+}
+
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('loginPassword').value;
+  if (!email || !pass) { showToast('Please fill in all fields'); return; }
+  if (!users[email]) { showToast('No account found. Please sign up first.'); return; }
+  if (users[email].password !== pass) { showToast('Incorrect password.'); return; }
+  user = users[email];
+  closeAuthModal();
+  enterDashboard();
+}
+
+function doSignup() {
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+  const branch = document.getElementById('signupBranch').value;
+  const year = document.getElementById('signupYear').value;
+  const college = document.getElementById('signupCollege').value.trim();
+  const pass = document.getElementById('signupPassword').value;
+  if (!name||!email||!branch||!year||!college||!pass) { showToast('Please fill all fields'); return; }
+  if (!email.includes('@')) { showToast('Enter a valid email'); return; }
+  if (pass.length < 6) { showToast('Password must be at least 6 characters'); return; }
+  if (users[email]) { showToast('Account already exists. Please log in.'); return; }
+  users[email] = {
+    name, email, branch, year, college, password: pass,
+    bio:'', mobile:'', upi:'', linkedin:'',
+    earnings: 0, ordersCompleted: 0, points: 0,
+    ratings: [], // array of numbers
+    skills: [], // array of skill objects
+    orders: [], // hire orders made by this user
+    activity: [], // feed
+    verified: false, verifyPending: false, verifyIdData: null,
+    monetized: false
+  };
+  user = users[email];
+  closeAuthModal();
+  enterDashboard();
+  showToast(`Welcome to SkillX, ${name.split(' ')[0]}! 🎉`);
+}
+
+function logout() {
+  user = null;
+  document.getElementById('dashboard').classList.remove('active');
+  document.getElementById('landing').classList.add('active');
+  document.querySelectorAll('.dash-tab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  document.querySelectorAll('.dash-panel').forEach((p,i)=>p.classList.toggle('active',i===0));
+  showToast('Logged out successfully');
+}
+
+// ============ DASHBOARD ============
+function enterDashboard() {
+  document.getElementById('landing').classList.remove('active');
+  document.getElementById('dashboard').classList.add('active');
+  refreshDashboard();
+  renderTalent(demoTalents);
+  renderOrders();
+  renderProfilePanel();
+}
+
+function refreshDashboard() {
+  if (!user) return;
+  const initials = user.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('navAvatar').textContent = initials;
+  document.getElementById('greetName').textContent = user.name.split(' ')[0];
+
+  // Stats
+  document.getElementById('bannerEarnings').textContent = '₹' + user.earnings.toLocaleString();
+  document.getElementById('statSkills').textContent = user.skills.length;
+  document.getElementById('statOrders').textContent = user.ordersCompleted;
+  document.getElementById('statPoints').textContent = user.points;
+
+  // Rating
+  if (user.ratings.length > 0) {
+    const avg = (user.ratings.reduce((a,b)=>a+b,0)/user.ratings.length).toFixed(1);
+    document.getElementById('statRating').textContent = avg + '★';
+  } else {
+    document.getElementById('statRating').textContent = '—';
+  }
+
+  // Hints
+  document.getElementById('statOrdersHint').textContent = user.ordersCompleted > 0 ? `↑ ${user.ordersCompleted} total` : 'Complete orders to earn';
+  const ptsLeft = Math.max(0, 200 - user.points);
+  document.getElementById('statPointsHint').textContent = user.points >= 200 ? '✓ Monetization unlocked!' : `${ptsLeft} more to monetize`;
+
+  // Activity feed
+  renderActivity();
+
+  // Home skills list
+  renderHomeSkills();
+
+  // Monetize widget
+  renderMonetizeWidget();
+}
+
+function renderActivity() {
+  const feed = document.getElementById('activityFeed');
+  if (!user.activity || user.activity.length === 0) {
+    feed.innerHTML = '<div class="empty-state"><div class="es-icon">📭</div><p>No activity yet.<br>Complete orders or hire talent to see your feed.</p></div>';
+    return;
+  }
+  feed.innerHTML = user.activity.slice().reverse().slice(0,8).map(a => `
+    <div class="activity-item">
+      <div class="act-icon ${a.type}">${a.icon}</div>
+      <div class="act-info"><div class="act-title">${a.title}</div><div class="act-sub">${a.sub}</div></div>
+      <div class="act-amount ${a.amtClass}">${a.amount}</div>
+    </div>`).join('');
+}
+
+function renderHomeSkills() {
+  const el = document.getElementById('homeSkillsList');
+  if (!user.skills || user.skills.length === 0) {
+    el.innerHTML = '<div class="empty-state" style="padding:20px 10px"><div class="es-icon">⚡</div><p style="font-size:13px">No skills added yet.<br><a style="color:var(--accent);cursor:pointer" onclick="switchTab(\'profile\',document.querySelectorAll(\'.dash-tab\')[3])">Add your first skill →</a></p></div>';
+    return;
+  }
+  el.innerHTML = user.skills.map(s=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+      <div style="font-size:18px">${s.emoji||catEmojis[s.category]||'⚡'}</div>
+      <div style="flex:1"><div style="font-size:13px;font-weight:500">${s.name}</div><div style="font-size:12px;color:var(--muted)">₹${s.price} ${s.pricingType}</div></div>
+      <div style="background:rgba(26,170,110,.1);color:var(--green);font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;text-transform:uppercase">Live</div>
+    </div>`).join('');
+}
+
+function renderMonetizeWidget() {
+  const el = document.getElementById('monetizeWidget');
+  const pct = Math.min(100, (user.points/200)*100);
+  if (user.points >= 200) {
+    el.innerHTML = `<div class="monetize-banner"><div style="font-size:28px;margin-bottom:8px">🎉</div><h3>Monetization Unlocked!</h3><p>You've earned 200+ points. Your profile is now monetized — clients can pay you directly.</p><div style="background:rgba(255,77,28,.2);border-radius:8px;padding:10px;font-size:13px;color:var(--accent2)">💰 UPI payments enabled · Profile boosted in search</div></div>`;
+  } else {
+    el.innerHTML = `<div class="panel-card" style="background:var(--ink);border-color:transparent"><div style="font-size:22px;margin-bottom:8px">🎯</div><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--paper);margin-bottom:4px">Earn Points → Monetize</div><div style="font-size:12px;color:rgba(245,243,238,.45);margin-bottom:12px">+100 pts per completed order. Reach 200 to unlock payments.</div><div style="height:6px;background:rgba(245,243,238,.1);border-radius:100px;overflow:hidden;margin-bottom:8px"><div style="width:${pct}%;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:100px;transition:width .6s"></div></div><div style="font-size:11px;color:rgba(245,243,238,.35)">${user.points} / 200 points</div></div>`;
+  }
+}
+
+// ============ SWITCH TAB ============
+function switchTab(tab, el) {
+  document.querySelectorAll('.dash-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.dash-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+  if (tab==='home') refreshDashboard();
+  if (tab==='profile') renderProfilePanel();
+  if (tab==='orders') renderOrders();
+}
+
+// ============ EXPLORE ============
+function renderTalent(list) {
+  const grid = document.getElementById('talentGrid');
+  if (list.length === 0) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:span 3;padding:60px"><div class="es-icon">🔍</div><p>No talent found for that search.</p></div>';
+    return;
+  }
+  grid.innerHTML = list.map(t=>`
+    <div class="talent-card">
+      <div class="tc-head">
+        <div class="tc-av" style="background:linear-gradient(135deg,${t.color}dd,${t.color}66)">${t.name[0]}</div>
+        <div><div class="tc-name">${t.name}</div><div class="tc-year">${t.year} · ${t.college}</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5">${t.bio}</div>
+      <div class="tc-tags">${t.skills.map(s=>`<span class="tc-tag">${s}</span>`).join('')}</div>
+      <div class="tc-footer">
+        <div class="tc-price">₹${t.price} <span>${t.pricingType}</span></div>
+        <div class="tc-rating"><span class="star">★</span> ${t.rating} <span style="color:var(--muted)">(${t.reviews})</span></div>
+      </div>
+      <button class="btn-hire" onclick="openHireModal('${t.id}')">Hire ${t.name.split(' ')[0]}</button>
+    </div>`).join('');
+}
+
+function filterTalent() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const cat = document.getElementById('catFilter').value;
+  renderTalent(demoTalents.filter(t=>(!q||t.name.toLowerCase().includes(q)||t.skills.some(s=>s.toLowerCase().includes(q))||t.bio.toLowerCase().includes(q))&&(!cat||t.category===cat)));
+}
+
+// ============ HIRE MODAL ============
+function openHireModal(tid) {
+  if (!user) { openModal('login'); return; }
+  const t = demoTalents.find(x=>x.id===tid);
+  if (!t) return;
+  currentHireTarget = t;
+  document.getElementById('hirePersonName').textContent = t.name;
+  document.getElementById('hireInfo').innerHTML = `
+    <div class="tc-av" style="background:linear-gradient(135deg,${t.color}dd,${t.color}66);width:40px;height:40px;min-width:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:#fff">${t.name[0]}</div>
+    <div><div style="font-size:14px;font-weight:600;color:var(--ink)">${t.name}</div><div style="font-size:12px;color:var(--muted)">${t.skills.join(', ')}</div><div style="font-size:12px;color:var(--accent);margin-top:2px">From ₹${t.price} ${t.pricingType}</div></div>`;
+  document.getElementById('hireBudget').value = t.price;
+  document.getElementById('hireDeadline').min = new Date().toISOString().split('T')[0];
+  document.getElementById('hireModal').classList.add('open');
+}
+
+function closeHireModal() { document.getElementById('hireModal').classList.remove('open'); currentHireTarget = null; }
+
+function submitHire() {
+  if (!user || !currentHireTarget) return;
+  const desc = document.getElementById('hireDesc').value.trim();
+  const budget = parseInt(document.getElementById('hireBudget').value);
+  const deadline = document.getElementById('hireDeadline').value;
+  if (!desc) { showToast('Please describe your project'); return; }
+  if (!budget || budget < 1) { showToast('Please enter a valid budget'); return; }
+  if (!deadline) { showToast('Please set a deadline'); return; }
+
+  const order = {
+    id: 'ORD' + Date.now(),
+    talent: currentHireTarget,
+    desc, budget, deadline,
+    status: 'pending',
+    date: new Date().toLocaleDateString('en-IN')
+  };
+  user.orders.push(order);
+  user.activity.push({ type:'hire', icon:'🛒', title:`Hired ${currentHireTarget.name} for project`, sub:currentHireTarget.skills[0]+' · '+order.date, amount:'-₹'+budget, amtClass:'neg' });
+
+  closeHireModal();
+  document.getElementById('hireDesc').value='';
+  renderOrders();
+  refreshDashboard();
+  showToast(`Hire request sent to ${currentHireTarget.name}! 🎉`);
+  document.getElementById('notifDot').style.display='block';
+}
+
+// ============ ORDERS ============
+function renderOrders() {
+  const el = document.getElementById('ordersContent');
+  if (!user || user.orders.length === 0) {
+    el.innerHTML = '<div class="empty-state" style="padding:60px"><div class="es-icon">📋</div><p>No orders yet.<br>Go to Explore to hire talent!</p></div>';
+    return;
+  }
+  el.innerHTML = `<div class="orders-table"><table>
+    <thead><tr><th>Service / Project</th><th>Talent</th><th>Budget</th><th>Deadline</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody>${user.orders.slice().reverse().map(o=>`
+      <tr>
+        <td><strong style="display:block">${o.talent.skills[0]}</strong><span style="font-size:12px;color:var(--muted)">${o.desc.slice(0,40)}${o.desc.length>40?'...':''}</span></td>
+        <td>${o.talent.name}<br><span style="font-size:11px;color:var(--muted)">⭐${o.talent.rating}</span></td>
+        <td>₹${o.budget.toLocaleString()}</td>
+        <td>${o.deadline}</td>
+        <td><span class="o-status ${o.status==='completed'?'done':o.status==='in_progress'?'progress':'pending'}">${o.status==='in_progress'?'In Progress':o.status.charAt(0).toUpperCase()+o.status.slice(1)}</span></td>
+        <td>${o.status==='pending'?`<button onclick="markInProgress('${o.id}')" style="background:var(--blue);color:#fff;border:none;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer">Start</button>`:
+            o.status==='in_progress'?`<button onclick="openCompleteModal('${o.id}')" style="background:var(--green);color:#fff;border:none;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer">Complete</button>`:
+            `<span style="font-size:12px;color:var(--green)">✓ Done</span>`}</td>
+      </tr>`).join('')}
+    </tbody></table></div>`;
+}
+
+function markInProgress(orderId) {
+  if (!user) return;
+  const o = user.orders.find(x=>x.id===orderId);
+  if (!o) return;
+  o.status = 'in_progress';
+  renderOrders();
+  showToast('Order marked as In Progress');
+}
+
+function openCompleteModal(orderId) {
+  const o = user.orders.find(x=>x.id===orderId);
+  if (!o) return;
+  currentCompleteOrderId = orderId;
+  document.getElementById('completeOrderInfo').innerHTML = `<strong>${o.talent.name}</strong> · ${o.talent.skills[0]}<br>Budget: ₹${o.budget} · Deadline: ${o.deadline}`;
+  document.getElementById('completeModal').classList.add('open');
+}
+
+function completeOrder() {
+  if (!user || !currentCompleteOrderId) return;
+  const o = user.orders.find(x=>x.id===currentCompleteOrderId);
+  if (!o) return;
+  const rating = parseInt(document.getElementById('ratingSelect').value);
+  const review = document.getElementById('reviewText').value.trim();
+
+  o.status = 'completed';
+  user.earnings += o.budget;
+  user.ordersCompleted += 1;
+  user.points += 100;
+  if (user.points >= 200) user.monetized = true;
+
+  // Add rating to talent (locally)
+  const talent = demoTalents.find(t=>t.id===o.talent.id);
+  if (talent) { talent.reviews += 1; talent.rating = +((talent.rating * (talent.reviews-1) + rating) / talent.reviews).toFixed(1); }
+
+  user.activity.push({ type:'earn', icon:'💰', title:`Order completed — ${o.talent.skills[0]}`, sub:`${o.talent.name} · ${new Date().toLocaleDateString('en-IN')}`, amount:'+₹'+o.budget, amtClass:'pos' });
+  user.activity.push({ type:'review', icon:'⭐', title:`You rated ${o.talent.name} ${rating}★`, sub:review||'No written review', amount:'+100 pts', amtClass:'pos' });
+
+  document.getElementById('completeModal').classList.remove('open');
+  document.getElementById('reviewText').value = '';
+  renderOrders();
+  refreshDashboard();
+  renderProfilePanel();
+  showToast(`Order completed! +₹${o.budget} earned · +100 skill points 🎉`);
+  currentCompleteOrderId = null;
+}
+
+// ============ PROFILE ============
+function renderProfilePanel() {
+  if (!user) return;
+  const initials = user.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('profAvatar').textContent = initials;
+  document.getElementById('profName').textContent = user.name;
+  document.getElementById('profMeta').textContent = [user.branch, user.year, user.college].filter(Boolean).join(' · ');
+
+  // Badges
+  let badges = '';
+  if (user.verified) badges += '<span class="badge verified">✓ Verified</span>';
+  else if (user.verifyPending) badges += '<span class="badge locked">⏳ Verification Pending</span>';
+  if (user.monetized) badges += '<span class="badge top">💰 Monetized</span>';
+  if (user.ordersCompleted >= 10) badges += '<span class="badge top">🔥 Top Seller</span>';
+  user.skills.forEach(s=> { badges += `<span class="badge skill-b">${s.name}</span>`; });
+  document.getElementById('profBadges').innerHTML = badges;
+
+  document.getElementById('profOrders').textContent = user.ordersCompleted;
+  document.getElementById('profEarnings').textContent = '₹'+user.earnings.toLocaleString();
+  document.getElementById('profPoints').textContent = user.points;
+
+  if (user.ratings.length > 0) {
+    const avg = (user.ratings.reduce((a,b)=>a+b,0)/user.ratings.length).toFixed(1);
+    document.getElementById('profRating').textContent = avg + '★';
+  } else {
+    document.getElementById('profRating').textContent = '—';
+  }
+
+  // Points bar
+  const pct = Math.min(100, (user.points/200)*100);
+  document.getElementById('ptsBarFill').style.width = pct+'%';
+  document.getElementById('ptsProgressLabel').textContent = user.points >= 200 ? '✓ Monetization unlocked!' : `${user.points} / 200 pts to unlock monetization`;
+  document.getElementById('ptsProgressMsg').textContent = user.points >= 200 ? '🎉 Your profile is monetized! Clients can pay you via UPI.' : `Complete orders to earn 100 points each. ${Math.max(0,200-user.points)} more needed!`;
+
+  // Pre-fill edit form
+  document.getElementById('editName').value = user.name;
+  if (user.branch) document.getElementById('editBranch').value = user.branch;
+  if (user.year) document.getElementById('editYear').value = user.year;
+  document.getElementById('editCollege').value = user.college || '';
+  document.getElementById('editBio').value = user.bio || '';
+  document.getElementById('editMobile').value = user.mobile || '';
+  document.getElementById('editUPI').value = user.upi || '';
+  document.getElementById('editLinkedin').value = user.linkedin || '';
+
+  // Verify section
+  renderVerifySection();
+
+  // Skills grid
+  renderMySkillsGrid();
+}
+
+function saveProfile() {
+  if (!user) return;
+  const name = document.getElementById('editName').value.trim();
+  const branch = document.getElementById('editBranch').value;
+  const year = document.getElementById('editYear').value;
+  const college = document.getElementById('editCollege').value.trim();
+  const bio = document.getElementById('editBio').value.trim();
+  const mobile = document.getElementById('editMobile').value.trim();
+  const upi = document.getElementById('editUPI').value.trim();
+  const linkedin = document.getElementById('editLinkedin').value.trim();
+  if (!name) { showToast('Name cannot be empty'); return; }
+  user.name = name; user.branch = branch; user.year = year;
+  user.college = college; user.bio = bio; user.mobile = mobile;
+  user.upi = upi; user.linkedin = linkedin;
+  renderProfilePanel();
+  refreshDashboard();
+  showToast('Profile saved! ✓');
+}
+
+// ============ VERIFICATION ============
+function handleIdUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 5*1024*1024) { showToast('File too large. Max 5MB.'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    user.verifyIdData = e.target.result;
+    document.getElementById('verifyPreview').style.display = 'block';
+    document.getElementById('verifyPreviewImg').src = e.target.result;
+    document.getElementById('verifySubmitBtn').disabled = false;
+    showToast('College ID uploaded! Click "Submit for Verification"');
+  };
+  reader.readAsDataURL(file);
+}
+
+function submitVerification() {
+  if (!user || !user.verifyIdData) return;
+  user.verifyPending = true;
+  document.getElementById('verifySubmitBtn').disabled = true;
+  renderVerifySection();
+  showToast('Verification submitted! Admin will review in 24–48 hours. ✓');
+  // Simulate admin approval after 5 seconds (for demo)
+  setTimeout(()=>{
+    if (user && user.verifyPending && !user.verified) {
+      user.verified = true;
+      user.verifyPending = false;
+      renderProfilePanel();
+      refreshDashboard();
+      showToast('🎉 Your campus ID is verified! Badge unlocked.');
+      document.getElementById('notifDot').style.display='block';
+    }
+  }, 5000);
+}
+
+function renderVerifySection() {
+  const statusEl = document.getElementById('verifyStatus');
+  const uploadSec = document.getElementById('verifyUploadSection');
+  if (user.verified) {
+    statusEl.innerHTML = '<div style="background:rgba(26,170,110,.1);border:1px solid rgba(26,170,110,.2);border-radius:8px;padding:14px;display:flex;align-items:center;gap:10px"><div style="font-size:20px">✅</div><div><div style="font-size:14px;font-weight:600;color:var(--green)">Campus Verified</div><div style="font-size:12px;color:var(--muted)">Your college ID has been verified by admin.</div></div></div>';
+    uploadSec.style.display='none';
+  } else if (user.verifyPending) {
+    statusEl.innerHTML = '<div style="background:rgba(255,201,60,.1);border:1px solid rgba(255,201,60,.2);border-radius:8px;padding:14px;display:flex;align-items:center;gap:10px"><div style="font-size:20px">⏳</div><div><div style="font-size:14px;font-weight:600;color:#b88a00">Verification Pending</div><div style="font-size:12px;color:var(--muted)">Admin is reviewing your college ID. Usually 24–48 hours.</div></div></div>';
+    uploadSec.style.display='none';
+  } else {
+    statusEl.innerHTML = '<div style="font-size:13px;color:var(--muted);margin-bottom:12px">Upload a clear photo of your college ID card to get the Verified badge on your profile.</div>';
+    uploadSec.style.display='block';
+    if (user.verifyIdData) {
+      document.getElementById('verifyPreview').style.display='block';
+      document.getElementById('verifyPreviewImg').src = user.verifyIdData;
+      document.getElementById('verifySubmitBtn').disabled = false;
+    }
+  }
+}
+
+// ============ SKILLS ============
+function openAddSkillModal() {
+  document.getElementById('skillName').value='';
+  document.getElementById('skillCategory').value='';
+  document.getElementById('skillEmoji').value='';
+  document.getElementById('skillPrice').value='';
+  document.getElementById('skillPricing').value='per project';
+  document.getElementById('skillDesc').value='';
+  document.getElementById('addSkillModal').classList.add('open');
+}
+
+function closeAddSkillModal() { document.getElementById('addSkillModal').classList.remove('open'); }
+
+function addSkill() {
+  if (!user) return;
+  const name = document.getElementById('skillName').value.trim();
+  const category = document.getElementById('skillCategory').value;
+  const emoji = document.getElementById('skillEmoji').value.trim();
+  const price = parseInt(document.getElementById('skillPrice').value);
+  const pricingType = document.getElementById('skillPricing').value;
+  const desc = document.getElementById('skillDesc').value.trim();
+  if (!name) { showToast('Please enter a skill name'); return; }
+  if (!category) { showToast('Please select a category'); return; }
+  if (!price || price < 1) { showToast('Please enter a valid price'); return; }
+  const skill = { id:'sk'+Date.now(), name, category, emoji: emoji||catEmojis[category]||'⚡', price, pricingType, desc };
+  user.skills.push(skill);
+  user.activity.push({ type:'hire', icon:'⚡', title:`New skill added: ${name}`, sub:`${category} · ₹${price} ${pricingType}`, amount:'', amtClass:'' });
+  closeAddSkillModal();
+  renderMySkillsGrid();
+  refreshDashboard();
+  renderProfilePanel();
+  showToast(`Skill "${name}" added! ✓`);
+}
+
+function deleteSkill(skillId) {
+  if (!user) return;
+  user.skills = user.skills.filter(s=>s.id!==skillId);
+  renderMySkillsGrid();
+  refreshDashboard();
+  renderProfilePanel();
+  showToast('Skill removed');
+}
+
+function renderMySkillsGrid() {
+  const grid = document.getElementById('mySkillsGrid');
+  let html = user.skills.map(s=>`
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(255,77,28,.08)">${s.emoji}</div>
+      <div style="flex:1"><div class="skill-name">${s.name}</div><div class="skill-rate">₹${s.price} ${s.pricingType}</div></div>
+      <button class="skill-del" onclick="deleteSkill('${s.id}')" title="Remove skill">✕</button>
+    </div>`).join('');
+  html += `<div class="skill-card add-card" onclick="openAddSkillModal()"><div style="font-size:22px">+</div><div style="font-size:12px;font-weight:500">Add Skill</div></div>`;
+  grid.innerHTML = html;
+}
+
+// ============ HELPERS ============
+function scrollTo2(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3500);
+}
+
+// Close modals on overlay click
+['authModal','addSkillModal','hireModal','completeModal'].forEach(id=>{
+  document.getElementById(id).addEventListener('click', function(e){ if(e.target===this) this.classList.remove('open'); });
+});
+</script>
+</body>
+</html>
